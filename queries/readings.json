@@ -1,3 +1,3 @@
 {
-  "query": "{ departments { id, name } }"
+  "query": "{ readings { id, value, taken_at } }"
 }
