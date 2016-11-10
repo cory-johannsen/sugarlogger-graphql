@@ -31,3 +31,10 @@ ALTER TABLE reading_id_seq OWNER TO sugarlogger;
 --
 
 ALTER SEQUENCE reading_id_seq OWNED BY reading.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: sugarlogger
+--
+
+ALTER TABLE ONLY reading ALTER COLUMN id SET DEFAULT nextval('reading_id_seq'::regclass);

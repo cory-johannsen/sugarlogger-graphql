@@ -7,7 +7,7 @@ function fetchReadings(database, query, parameters) {
   return database.query(query, parameters)
     .then((results) => {
       return results.rows.map((row) => {
-        return new Reading(row.id, row.name)
+        return new Reading(row.id, row.value, row.taken_at)
       })
     })
     .catch((error) => {
@@ -24,7 +24,7 @@ export default class ReadingRepository {
   }
 
   findAll() {
-    return fetchReadings(this.database, query, [])
+    return fetchReadings(this.database, query + ' ORDER BY taken_at DESC', [])
   }
 
   findById(id) {
@@ -38,13 +38,15 @@ export default class ReadingRepository {
 
 
   create(value, takenAt) {
-    console.log('ReadingRepository.create:', departmentName)
+    console.log('ReadingRepository.create:', value, takenAt)
     const query = 'INSERT INTO reading (value, taken_at) VALUES($1, $2)'
     console.log('ReadingRepository.create: query:', query)
     return this.database.query(query, [value, takenAt])
       .then((results) => {
-        const readings = this.findAll()
-        return readings[readings.length - 1]
+        return this.findAll().then((readings) => {
+          console.log('returning new reading', readings[0])
+          return readings[0]
+        })
       }).catch(e => {
         console.log(e)
         return e

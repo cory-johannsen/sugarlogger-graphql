@@ -4,14 +4,14 @@ const schema = buildSchema(`
   type Reading {
     id: Int!
     value: Int!
-    takenAt: Int!
+    takenAt: String!
   }
 
 
   input ReadingInput {
     id: Int!
     value: Int!
-    takenAt: Int!
+    takenAt: String!
   }
 
   type Query {
@@ -19,7 +19,7 @@ const schema = buildSchema(`
   }
 
   type Mutation {
-    addReading(value: Int!, takenAt: Int!): Reading!
+    addReading(value: Int!, takenAt: String!): Reading!
   }
 
 `)

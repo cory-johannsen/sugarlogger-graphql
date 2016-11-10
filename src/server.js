@@ -20,10 +20,11 @@ const root = {
 
 
   addReading: (input) => {
-    const {name, readingId} = input
-    console.log(`Processing request: addReading('${name}', ${departmentId})`)
-    return Promise.all([readingRepository.create(name, departmentId)]
+    const {value, takenAt} = input
+    console.log(`Processing request: addReading('${value}', ${takenAt})`)
+    return Promise.all([readingRepository.create(value, takenAt)]
       ).then((values) => {
+        console.log('addReading values:', values)
         const reading = values[0]
         console.log('addReading returning:', reading)
         return reading
