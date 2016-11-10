@@ -1,0 +1,39 @@
+{
+  "name": "sugarlogger-graphql",
+  "version": "1.0.0",
+  "description": "GraphQL server with PostgreSQL and Node.js",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "watch": "supervisor src/index.js",
+    "debug": "node-debug src/index.js",
+    "build": "babel src -d lib"
+  },
+  "author": "Cory Johannsen",
+  "license": "MIT",
+  "dependencies": {
+    "babel": "^6.0.0",
+    "babel-core": "^6.0.0",
+    "babel-preset-es2016": "^6.11.3",
+    "babel-preset-es2017": "^6.14.0",
+    "babel-preset-stage-3": "^6.11.0",
+    "body-parser": "^1.15.2",
+    "co": "^4.5.4",
+    "co-body": "^2.0.0",
+    "debug": "^2.2.0",
+    "express-graphql": "^0.5.4",
+    "graphql": "^0.7.0",
+    "koa": "^0.21.0",
+    "koa-qs": "^2.0.0",
+    "koa-router": "^5.1.1",
+    "pg": "^6.1.0",
+    "pg-pool": "^1.5.0",
+    "superagent": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "^6.5.0"
+  }
+}
