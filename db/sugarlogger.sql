@@ -6,7 +6,7 @@
 CREATE TABLE reading (
     id bigint NOT NULL,
     value bigint NOT NULL,
-    taken_at timestamp without time zone DEFAULT now()
+    taken_at timestamp with time zone DEFAULT now()
 );
 
 
