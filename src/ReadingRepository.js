@@ -53,4 +53,15 @@ export default class ReadingRepository {
       })
   }
 
+  remove(id) {
+    console.log('ReadingRepository.remove:', id)
+    const query = 'DELETE FROM reading WHERE id=$1'
+    return this.database.query(query, [id])
+      .then((results) => {
+        return true
+      }).catch(e => {
+        console.log(e)
+        return e
+      })
+  }
 }

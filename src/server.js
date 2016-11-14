@@ -3,6 +3,7 @@ import graphqlHTTP from 'express-graphql'
 import { buildSchema } from 'graphql'
 
 import schema from './schema'
+import RemoveResult from './RemoveResult'
 import Database from './Database'
 import ReadingRepository from './ReadingRepository'
 
@@ -18,7 +19,6 @@ const root = {
     return readingRepository.findAll()
   },
 
-
   addReading: (input) => {
     const {value, takenAt} = input
     console.log(`Processing request: addReading('${value}', ${takenAt})`)
@@ -33,6 +33,18 @@ const root = {
       })
   },
 
+  removeReading: (input) => {
+    const {id} = input
+    console.log(`Processing request: removeReading('${id}')`)
+    return Promise.all([readingRepository.remove(id)]
+      ).then((values) => {
+        console.log('removeReading values:', values)
+        return new RemoveResult(true, null)
+      }).catch((error) => {
+        console.log('addReading error:', error)
+        return new RemoveResult(false, error)
+      })
+  }
 }
 
 var app = express();

@@ -7,6 +7,10 @@ const schema = buildSchema(`
     takenAt: String!
   }
 
+  type RemoveResult {
+    success: Boolean!
+    error: String
+  }
 
   input ReadingInput {
     id: Int!
@@ -20,6 +24,7 @@ const schema = buildSchema(`
 
   type Mutation {
     addReading(value: Int!, takenAt: String!): Reading!
+    removeReading(id: Int!): RemoveResult!
   }
 
 `)
