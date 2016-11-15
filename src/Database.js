@@ -6,7 +6,8 @@ export default class Database {
     this.pool = new Pool({
       database: 'sugarlogger',
       user: 'sugarlogger',
-      host: 'sugarlogger.cq3xeric7bhh.us-east-1.rds.amazonaws.com',
+      host: 'localhost',
+      //host: 'sugarlogger.cq3xeric7bhh.us-east-1.rds.amazonaws.com',
       post: 5432,
       ssl: false,
       max: 20, // set pool max size to 20

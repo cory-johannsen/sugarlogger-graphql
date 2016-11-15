@@ -6,12 +6,14 @@ import schema from './schema'
 import RemoveResult from './RemoveResult'
 import Database from './Database'
 import DoseRepository from './DoseRepository'
+import MealRepository from './MealRepository'
 import ReadingRepository from './ReadingRepository'
 
 const port = process.env.PORT || 3000
 
 const database = new Database()
 const doseRepository = new DoseRepository(database)
+const mealRepository = new MealRepository(database)
 const readingRepository = new ReadingRepository(database)
 
 
@@ -77,6 +79,38 @@ const root = {
         return new RemoveResult(true, null)
       }).catch((error) => {
         console.log('addDose error:', error)
+        return new RemoveResult(false, error)
+      })
+  },
+
+  meals: () => {
+    console.log("Processing request: meals")
+    return mealRepository.findAll()
+  },
+
+  addMeal: (input) => {
+    const {value, takenAt} = input
+    console.log(`Processing request: addMeal('${value}', ${takenAt})`)
+    return Promise.all([mealRepository.create(value, takenAt)]
+      ).then((values) => {
+        console.log('addMeal values:', values)
+        const meal = values[0]
+        console.log('addMeal returning:', meal)
+        return meal
+      }).catch((error) => {
+        console.log('addMeal error:', error)
+      })
+  },
+
+  removeMeal: (input) => {
+    const {id} = input
+    console.log(`Processing request: removeMeal('${id}')`)
+    return Promise.all([doseRepository.remove(id)]
+      ).then((values) => {
+        console.log('removeMeal values:', values)
+        return new RemoveResult(true, null)
+      }).catch((error) => {
+        console.log('addMeal error:', error)
         return new RemoveResult(false, error)
       })
   }
