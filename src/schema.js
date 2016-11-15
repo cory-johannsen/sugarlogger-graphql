@@ -7,6 +7,12 @@ const schema = buildSchema(`
     takenAt: String!
   }
 
+  type Dose {
+    id: Int!
+    value: Int!
+    takenAt: String!
+  }
+
   type RemoveResult {
     success: Boolean!
     error: String
@@ -18,13 +24,23 @@ const schema = buildSchema(`
     takenAt: String!
   }
 
+  input DoseInput {
+    id: Int!
+    value: Int!
+    takenAt: String!
+  }
+
   type Query {
     readings: [Reading!]
+    doses: [Dose!]
   }
 
   type Mutation {
     addReading(value: Int!, takenAt: String!): Reading!
     removeReading(id: Int!): RemoveResult!
+
+    addDose(value: Int!, takenAt: String!): Dose!
+    removeDose(id: Int!): RemoveResult!
   }
 
 `)

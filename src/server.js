@@ -5,12 +5,15 @@ import { buildSchema } from 'graphql'
 import schema from './schema'
 import RemoveResult from './RemoveResult'
 import Database from './Database'
+import DoseRepository from './DoseRepository'
 import ReadingRepository from './ReadingRepository'
 
 const port = process.env.PORT || 3000
 
 const database = new Database()
+const doseRepository = new DoseRepository(database)
 const readingRepository = new ReadingRepository(database)
+
 
 // The root provides a resolver function for each API endpoint
 const root = {
@@ -42,6 +45,38 @@ const root = {
         return new RemoveResult(true, null)
       }).catch((error) => {
         console.log('addReading error:', error)
+        return new RemoveResult(false, error)
+      })
+  },
+
+  doses: () => {
+    console.log("Processing request: doses")
+    return doseRepository.findAll()
+  },
+
+  addDose: (input) => {
+    const {value, takenAt} = input
+    console.log(`Processing request: addDose('${value}', ${takenAt})`)
+    return Promise.all([doseRepository.create(value, takenAt)]
+      ).then((values) => {
+        console.log('addDose values:', values)
+        const dose = values[0]
+        console.log('addDose returning:', dose)
+        return dose
+      }).catch((error) => {
+        console.log('addDose error:', error)
+      })
+  },
+
+  removeDose: (input) => {
+    const {id} = input
+    console.log(`Processing request: removeDose('${id}')`)
+    return Promise.all([doseRepository.remove(id)]
+      ).then((values) => {
+        console.log('removeDose values:', values)
+        return new RemoveResult(true, null)
+      }).catch((error) => {
+        console.log('addDose error:', error)
         return new RemoveResult(false, error)
       })
   }
