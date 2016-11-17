@@ -1,12 +1,12 @@
 import Meal from './Meal'
 
 function fetchMeals(database, query, parameters) {
-  // console.log('fetchMeals entered:', query, parameters)
+  console.log('fetchMeals entered:', query, parameters)
 
   return database.query(query, parameters)
     .then((results) => {
       return results.rows.map((row) => {
-        return new Meal(row.id, row.description, row.eaten_at, row.sugars, row.carbohydrates)
+        return new Meal(row.id, row.description, row.eaten_at, row.sugars, row.carbohydrates, row.calories)
       })
     })
     .catch((error) => {
@@ -36,11 +36,11 @@ export default class MealRepository {
   }
 
 
-  create(description, eatenAt, sugars, carbohydrates) {
-    console.log('MealRepository.create:', description, eatenAt, sugars, carbohydrates)
-    const query = 'INSERT INTO meal (value, eaten_at) VALUES($1, $2, $3, $4)'
+  create(description, eatenAt, sugars, carbohydrates, calories) {
+    console.log('MealRepository.create:', description, eatenAt, sugars, carbohydrates, calories)
+    const query = 'INSERT INTO meal (description, eaten_at, sugars, carbohydrates) VALUES($1, $2, $3, $4, $5)'
     console.log('MealRepository.create: query:', query)
-    return this.database.query(query, [description, eatenAt, sugars, carbohydrates])
+    return this.database.query(query, [description, eatenAt, sugars, carbohydrates, calories])
       .then((results) => {
         return this.findAll().then((meals) => {
           console.log('returning new meal', meals[0])

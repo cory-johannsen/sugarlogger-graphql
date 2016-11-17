@@ -88,7 +88,8 @@ CREATE TABLE meal (
     description varchar(1024) NOT NULL,
     eaten_at timestamp with time zone DEFAULT now(),
     sugars bigint NOT NULL,
-    carbohydrates bigint NOT NULL
+    carbohydrates bigint NOT NULL,
+    calories bigint NOT NULL
 );
 
 

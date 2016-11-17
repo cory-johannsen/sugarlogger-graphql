@@ -19,6 +19,7 @@ const schema = buildSchema(`
     eatenAt: String!
     sugars: Int!
     carbohydrates: Int!
+    calories: Int!
   }
 
   type RemoveResult {
@@ -39,7 +40,7 @@ const schema = buildSchema(`
     addDose(value: Int!, takenAt: String!): Dose!
     removeDose(id: Int!): RemoveResult!
 
-    addMeal(description: String!, eatenAt: String!, sugars: Int!, carbohydrates: Int!): Meal!
+    addMeal(description: String!, eatenAt: String!, sugars: Int!, carbohydrates: Int!, calories: Int!): Meal!
     removeMeal(id: Int!): RemoveResult!
   }
 

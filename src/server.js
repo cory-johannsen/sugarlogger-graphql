@@ -89,9 +89,9 @@ const root = {
   },
 
   addMeal: (input) => {
-    const {value, takenAt} = input
-    console.log(`Processing request: addMeal('${value}', ${takenAt})`)
-    return Promise.all([mealRepository.create(value, takenAt)]
+    const {description, eatenAt, sugars, carbohydrates} = input
+    console.log(`Processing request: addMeal('${description}', ${eatenAt}, ${sugars}, ${carbohydrates})`)
+    return Promise.all([mealRepository.create(description, eatenAt, sugars, carbohydrates)]
       ).then((values) => {
         console.log('addMeal values:', values)
         const meal = values[0]
